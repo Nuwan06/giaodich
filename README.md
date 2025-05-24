@@ -45,8 +45,8 @@ Hệ thống quản lý ví điểm thưởng được phát triển để hỗ 
   - Ví dụ: `user1,Thêm điểm,1000,Hệ thống,Ví chính,Wed May 24 14:12:00 2025`
 
 ## Thành viên nhóm
-- **Mạc Thanh Toàn**: Phát triển chức năng tạo tài khoản, đăng nhập, OTP.
-- **Trần Thanh Nhuận**: Phát triển chức năng đổi mật khẩu, xem số dư, thêm điểm.
+- **Trần Thanh Nhuận**: Phát triển chức năng tạo tài khoản, đăng nhập, OTP.
+- **Mạc Thanh Toàn**: Phát triển chức năng đổi mật khẩu, xem số dư, thêm điểm.
 - **Nguyễn Ngọc Toàn**: Phát triển chức năng giao dịch giữa ví, lịch sử giao dịch, kiểm tra hệ thống.
 
 ## Lưu ý
