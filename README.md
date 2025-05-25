@@ -1,3 +1,5 @@
+
+
 # Hệ thống Quản lý Ví Điểm Thưởng
 
 ## Mô tả dự án
@@ -52,3 +54,4 @@ Hệ thống quản lý ví điểm thưởng được phát triển để hỗ 
 ## Lưu ý
 - Đảm bảo file `accounts.txt` và `transactions.txt` có quyền đọc/ghi.
 - OTP trong chương trình được sinh ngẫu nhiên và hiển thị (mô phỏng). Trong thực tế, cần tích hợp gửi OTP qua email/SMS.
+
