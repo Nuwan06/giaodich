@@ -1,2 +1,0 @@
-# giaodich
-dự án c++
