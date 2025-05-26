@@ -46,7 +46,7 @@ Hệ thống quản lý ví điểm thưởng được phát triển để hỗ 
 - **transactions.txt**: Lưu lịch sử giao dịch (tài khoản, loại giao dịch, số điểm, ví nguồn, ví đích, thời gian).
   - Ví dụ: `user1,Thêm điểm,1000,Hệ thống,Ví chính,Wed May 24 14:12:00 2025`
 
-## Thành viên nhóm
+## Thành viên nhóm và công việc được giao
 - **Trần Thanh Nhuận**: Phát triển chức năng tạo tài khoản, đăng nhập, OTP.
 - **Mạc Thanh Toàn**: Phát triển chức năng đổi mật khẩu, xem số dư, thêm điểm.
 - **Nguyễn Ngọc Toàn**: Phát triển chức năng giao dịch giữa ví, lịch sử giao dịch, kiểm tra hệ thống.
