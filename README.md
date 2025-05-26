@@ -54,4 +54,16 @@ Hệ thống quản lý ví điểm thưởng được phát triển để hỗ 
 ## Lưu ý
 - Đảm bảo file `accounts.txt` và `transactions.txt` có quyền đọc/ghi.
 - OTP trong chương trình được sinh ngẫu nhiên và hiển thị (mô phỏng). Trong thực tế, cần tích hợp gửi OTP qua email/SMS.
+## TÀI LIỆU THAM KHẢO
+
+[1] "C++ Language Reference", cppreference.com. Truy cập tại: https://en.cppreference.com/w/cpp  
+[2] "File streams in C++", cplusplus.com. Truy cập tại: https://cplusplus.com/doc/tutorial/files/  
+[3] "String streams in C++", GeeksforGeeks. Truy cập tại: https://www.geeksforgeeks.org/stringstream-c-applications/  
+[4] "Generating random numbers in C++", GeeksforGeeks. Truy cập tại: https://www.geeksforgeeks.org/generating-random-number-cpp/  
+[5] "std::vector", cppreference.com. Truy cập tại: https://en.cppreference.com/w/cpp/container/vector  
+[6] "Time utilities in C++", cppreference.com. Truy cập tại: https://en.cppreference.com/w/cpp/chrono/c/time  
+[7] "Manipulators in C++", cppreference.com. Truy cập tại: https://en.cppreference.com/w/cpp/io/manip  
+[8] "Structs and Classes in C++", Programiz. Truy cập tại: https://www.programiz.com/cpp-programming/structure  
+[9] "system() Function in C++", cplusplus.com. Truy cập tại: https://cplusplus.com/reference/cstdlib/system/
+
 
