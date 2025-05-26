@@ -64,6 +64,8 @@ Hệ thống quản lý ví điểm thưởng được phát triển để hỗ 
 [6] "Time utilities in C++", cppreference.com. Truy cập tại: https://en.cppreference.com/w/cpp/chrono/c/time  
 [7] "Manipulators in C++", cppreference.com. Truy cập tại: https://en.cppreference.com/w/cpp/io/manip  
 [8] "Structs and Classes in C++", Programiz. Truy cập tại: https://www.programiz.com/cpp-programming/structure  
-[9] "system() Function in C++", cplusplus.com. Truy cập tại: https://cplusplus.com/reference/cstdlib/system/
+[9] "system() Function in C++", cplusplus.com. Truy cập tại: https://cplusplus.com/reference/cstdlib/system/  
+[10] GeeksforGeeks. (n.d.). Hashing Data Structure. Truy cập từ: https://www.geeksforgeeks.org/hashing-data-structure/
+
 
 
