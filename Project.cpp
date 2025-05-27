@@ -32,20 +32,20 @@ string TaoOTP() {
 string TaoMatkhauTudong() {
     const string charset = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     string matkhau;
-    for (int i = 0; i < 8; ++i) {
-        matkhau += charset[rand() % charset.length()];
+    for (int i = 0; i < 8; ++i) {     // Lặp 8 lần để tạo mật khẩu 8 ký tự
+        matkhau += charset[rand() % charset.length()];  // Thêm ký tự ngẫu nhiên từ charset vào mật khẩu
     }
     return matkhau;   // Trả về mật khẩu đã tạo
 }
 
 // Hàm sinh mã ví ngẫu nhiên
-string TaomaVi() { // Khai báo hàm trả về chuỗi mã ví
-    const string charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // Bộ ký tự gồm chữ cái in hoa và số
-    string maVi; // Biến chuỗi lưu mã ví
-    for (int i = 0; i < 8; ++i) { // Lặp 8 lần để tạo mã ví 8 ký tự
-        maVi += charset[rand() % charset.length()]; // Thêm ký tự ngẫu nhiên từ charset vào mã ví
+string TaomaVi() {
+    const string charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    string maVi;
+    for (int i = 0; i < 8; ++i) {    // Lặp 8 lần để tạo mã ví 8 ký tự
+        maVi += charset[rand() % charset.length()];  // Thêm ký tự ngẫu nhiên từ charset vào mã ví
     }
-    return maVi; // Trả về mã ví đã tạo
+    return maVi;   // Trả về mã ví đã tạo
 }
 
 // Lớp để quản lý tài khoản, ví và giao dịch
@@ -132,76 +132,74 @@ private:
         return tk;   // Trả về vector dữ liệu tài khoản
     }
 
- // Đọc tất cả dữ liệu ví từ tệp ví
-    vector<tuple<string, string, string, int>> DanhsachVi() { // Hàm trả về vector các tuple chứa thông tin ví
-        vector<tuple<string, string, string, int>> Vi; // Vector lưu danh sách ví
-        ifstream inputFile(Filevi); // Mở tệp filevidiem.txt để đọc
-        string line; // Biến lưu từng dòng đọc từ tệp
-        while (getline(inputFile, line)) { // Đọc từng dòng cho đến khi hết tệp
-            stringstream ss(line); // Tạo luồng chuỗi để phân tích dòng
-            string ma, tk, loai; // Biến lưu mã ví, tên tài khoản, loại ví
-            int sodu; // Biến lưu số dư ví
-            getline(ss, ma, ','); // Đọc mã ví (phân tách bằng dấu phẩy)
-            getline(ss, tk, ','); // Đọc tên tài khoản
-            getline(ss, loai, ','); // Đọc loại ví (chinh, phu, hoặc tong)
-            ss >> sodu; // Đọc số dư ví
-            Vi.emplace_back(ma, tk, loai, sodu); // Thêm tuple (mã ví, tên tài khoản, loại ví, số dư) vào vector
+// Đọc tất cả dữ liệu ví từ tệp ví
+    vector<tuple<string, string, string, int>> DanhsachVi() {
+        vector<tuple<string, string, string, int>> Vi;   // Vector để lưu trữ dữ liệu ví
+        ifstream inputFile(Filevi);           // Mở tệp ví để đọc
+        string line;
+        while (getline(inputFile, line)) {
+            stringstream ss(line);            // Tạo luồng chuỗi để phân tích dòng
+            string ma, tk, loai;              // Các biến để lưu trữ các trường ví
+            int sodu;            
+            getline(ss, ma, ',');          // Đọc thông tin ví
+            getline(ss, tk, ',');
+            getline(ss, loai, ',');
+            ss >> sodu;
+            Vi.emplace_back(ma, tk, loai, sodu);  // Thêm tuple ví vào vector
         }
-        inputFile.close(); // Đóng tệp sau khi đọc
-        return Vi; // Trả về vector chứa danh sách ví
+        inputFile.close();
+        return Vi;  // Trả về vector dữ liệu ví
     }
 
 // Đọc tất cả dữ liệu giao dịch từ tệp lịch sử giao dịch
-    vector<tuple<string, string, string, int, string, string>> LichsuGiaodich() { // Hàm trả về vector các tuple giao dịch
-        vector<tuple<string, string, string, int, string, string>> Giaodich; // Vector lưu danh sách giao dịch
-        ifstream inputFile(Filegiaodich); // Mở tệp filegiaodich.txt để đọc
-        string line; // Biến lưu từng dòng đọc từ tệp
-        while (getline(inputFile, line)) { // Đọc từng dòng cho đến khi hết tệp
-            stringstream ss(line); // Tạo luồng chuỗi để phân tích dòng
-            string ma, nguon, dich, thoigian, trangthai; // Biến lưu mã giao dịch, ví nguồn, ví đích, thời gian, trạng thái
-            int diem; // Biến lưu số điểm giao dịch
-            getline(ss, ma, ','); // Đọc mã giao dịch
-            getline(ss, nguon, ','); // Đọc mã ví nguồn
-            getline(ss, dich, ','); // Đọc mã ví đích
-            ss >> diem; // Đọc số điểm
-            cin.ignore(); // Bỏ qua ký tự phân tách (lỗi: cin.ignore() không đúng ngữ cảnh, nên dùng ss.ignore())
-            getline(ss, thoigian, ','); // Đọc thời gian giao dịch
-            getline(ss, trangthai); // Đọc trạng thái giao dịch
-            Giaodich.emplace_back(ma, nguon, dich, diem, thoigian, trangthai); // Thêm tuple giao dịch vào vector
+    vector<tuple<string, string, string, string, string, int>> LichsuGiaodich() {
+        vector<tuple<string, string, string, string, string, int>> Giaodich; // Vector để lưu trữ dữ liệu giao dịch
+        ifstream inputFile(Filegiaodich);   // Mở tệp lịch sử giao dịch để đọc
+        string line;
+        while (getline(inputFile, line)) {
+            stringstream ss(line);
+            string ma, nguon, dich, thoigian, trangthai;  // Các biến để lưu trữ các trường giao dịch
+            int diem;
+            getline(ss, ma, ',');        // Đọc thông tin lịch sử giao dịch
+            getline(ss, nguon, ',');
+            getline(ss, dich, ',');
+            getline(ss, thoigian, ',');
+            getline(ss, trangthai, ',');
+            ss >> diem;
+            Giaodich.emplace_back(ma, nguon, dich, thoigian, trangthai, diem);  // Thêm tuple giao dịch vào vector
         }
-        inputFile.close(); // Đóng tệp sau khi đọc
-        return Giaodich; // Trả về vector chứa danh sách giao dịch
+        inputFile.close();
+        return Giaodich;   // Trả về vector dữ liệu giao dịch
     }
-
 
 // Lưu một vector các tuple ví vào tệp ví
 // Đầu vào: Vi (vector các tuple chứa dữ liệu ví)
-    void luuDuLieuVi(const vector<tuple<string, string, string, int>>& Vi) { // Hàm lưu vector ví vào tệp
-        ofstream outputFile(Filevi); // Mở tệp filevidiem.txt để ghi (ghi đè)
-        if (outputFile.is_open()) { // Kiểm tra xem tệp có mở thành công không
-            for (const auto& vi : Vi) { // Duyệt qua từng tuple ví trong vector
-                outputFile << get<0>(vi) << "," << get<1>(vi) << "," // Ghi mã ví và tên tài khoản
-                         << get<2>(vi) << "," << get<3>(vi) << endl; // Ghi loại ví và số dư, kết thúc dòng
+    void luuDuLieuVi(const vector<tuple<string, string, string, int>>& Vi) {
+        ofstream outputFile(Filevi);      // Mở tệp ví để ghi (ghi đè nội dung hiện có)
+        if (outputFile.is_open()) {
+            for (const auto& vi : Vi) {   // Lặp qua từng tuple ví
+                outputFile << get<0>(vi) << "," << get<1>(vi) << ","     // Ghi dữ liệu ví vào tệp, phân tách bằng dấu phẩy
+                         << get<2>(vi) << "," << get<3>(vi) << endl;
             }
-            outputFile.close(); // Đóng tệp sau khi ghi
+            outputFile.close();
         } else {
-            cerr << "Không thể mở tệp để ghi ví." << endl; // Thông báo lỗi nếu không mở được tệp
+            cerr << "Không thể mở tệp để ghi ví." << endl;   // Thông báo lỗi
         }
     }
 
  // Lưu một vector các tuple giao dịch vào tệp lịch sử giao dịch 
  // Đầu vào: Lichsu (vector các tuple chứa dữ liệu giao dịch)   
-    void luuDuLieuGiaodich(const vector<tuple<string, string, string, int, string, string>>& Lichsu) { // Hàm lưu vector giao dịch vào tệp
-        ofstream outputFile(Filegiaodich); // Mở tệp filegiaodich.txt để ghi (ghi đè)
-        if (outputFile.is_open()) { // Kiểm tra xem tệp có mở thành công không
-            for (const auto& gd : Lichsu) { // Duyệt qua từng tuple giao dịch trong vector
-                outputFile << get<0>(gd) << "," << get<1>(gd) << "," // Ghi mã giao dịch và ví nguồn
-                         << get<2>(gd) << "," << get<3>(gd) << "," // Ghi ví đích và số điểm
-                         << get<4>(gd) << "," << get<5>(gd) << endl; // Ghi thời gian và trạng thái, kết thúc dòng
+    void luuDuLieuGiaodich(const vector<tuple<string, string, string, string, string, int>>& Lichsu) {
+        ofstream outputFile(Filegiaodich);    // Mở tệp lịch sử giao dịch để ghi  
+        if (outputFile.is_open()) {
+            for (const auto& gd : Lichsu) {   // Lặp qua từng tuple giao dịch
+                outputFile << get<0>(gd) << "," << get<1>(gd) << ","     // Ghi dữ liệu giao dịch vào tệp, phân tách bằng dấu phẩy
+                         << get<2>(gd) << "," << get<3>(gd) << "," 
+                         << get<4>(gd) << "," << get<5>(gd) << endl;
             }
-            outputFile.close(); // Đóng tệp sau khi ghi
+            outputFile.close();
         } else {
-            cerr << "Không thể mở tệp để ghi giao dịch." << endl; // Thông báo lỗi nếu không mở được tệp
+            cerr << "Không thể mở tệp để ghi giao dịch." << endl;  // Thông báo lỗi
         }
     }
 
@@ -218,17 +216,31 @@ public:
         isAdmin = false;    // Không phải admin ban đầu
         // Kiểm tra và tạo ví tổng nếu chưa có
         auto danhsachvi = DanhsachVi();       // Lấy danh sách ví hiện có
-        bool hasTongVi = false;               // Biến kiểm tra xem ví tổng có tồn tại không
+        bool hasTongVi = false;
         for (const auto& vi : danhsachvi) {   // Duyệt qua các ví
             if (get<2>(vi) == "tong") {       // Nếu tìm thấy ví loại "tong trả về true
-                hasTongVi = true;             // Đặt cờ báo ví tổng đã tồn tại
+                hasTongVi = true;
                 break;
             }
         }
         if (!hasTongVi) {    // Nếu chưa có ví tổng
             // Thêm ví tổng vào danh sách với mã "TONG0001", thuộc sở hữu "system", loại "tong" và 100,000,000 điểm
-            danhsachvi.emplace_back("TONG0001", "system", "tong", 100000000);
+            danhsachvi.emplace_back("TONG0001", "admin", "tong", 100000000);
             luuDuLieuVi(danhsachvi);  // Lưu lại danh sách ví đã cập nhật vào file
+        }
+         auto tk = TK();                   // Lấy danh sách tài khoản hiện có
+        bool hasAdmin = false; 
+        for (const auto& Tk : tk) {        // Duyệt qua danh sách tài khoản
+            if (get<0>(Tk) == "admin") {   // Nếu tìm thấy tài khoản admin trả về true
+                hasAdmin = true;
+                break;                      // thoát khỏi hàm
+            }
+        }
+        if (!hasAdmin) {                    // Mấu chưa có tài khoản admin
+            // Thêm tàu khoản admin với tài khoản "admin" mật khẩu abcd1234 
+            string mkadmin = "abcd1234";
+            tk.emplace_back("admin", to_string(hashFunction(mkadmin)), "nhuantranthanh@gmail.com", "01234567" , "1");
+            LuulaiTaikhoan(tk);            // Lưu lại tài khoản admin
         }
     }
 
@@ -259,6 +271,9 @@ public:
         } else {     // Nếu không, tự động tạo mật khẩu
             Matkhau = TaoMatkhauTudong();
             cout << "Mật khẩu tự động được tạo: " << Matkhau << endl;
+        ofstream outputFile("matkhautudong.txt");
+        outputFile << TenTk << "," << Matkhau << endl;
+        outputFile.close();
         }
         cout << "Nhập email: ";
         cin >> email;
@@ -273,7 +288,7 @@ public:
             outputFile.close();
             cout << "Tài khoản '" << TenTk << "' đã được tạo thành công!" << endl;
             if (tolower(choice) != 'y') {
-                cout << "Lưu ý: Mật khẩu tự động này sẽ không hiển thị lại. Hãy ghi nhớ hoặc đổi mật khẩu sau khi đăng nhập." << endl;
+                cout << "Lưu ý: Mật khẩu tự động này sẽ được gửi về email của bạn và không hiển thị lại. Hãy ghi nhớ hoặc đổi mật khẩu sau khi đăng nhập." << endl;
             }
             // Tạo ví chính mặc định cho tài khoản mới (trừ tài khoản admin)
             if (!admin) {   // Nếu không là admin
@@ -338,7 +353,7 @@ public:
             return;
         }
         string MatkhauCu, MatkhauMoi, XacnhanMatkhauMoi, inputOTP;
-        cout << "Nhập mật khẩu cũ: ";
+        cout << "Nhập mật khẩu cũ của tài khoản " << currentUser <<" :";
         cin >> MatkhauCu;
         if (!KiemtranThongtinTk(currentUser, MatkhauCu)) {   // Kiểm tra mật khẩu cũ
             cout << "Mật khẩu cũ không đúng." << endl;
@@ -479,82 +494,90 @@ public:
 
 // Chuyển điểm giữa các ví
 // Quy trình: Hiển thị ví của người dùng, yêu cầu thông tin giao dịch, kiểm tra tính hợp lệ của ví và số dư,
-//Gửi OTP để xác nhận giao dịch, cập nhật số dư ví và lưu lại lịch sử giao dịch.
-    void chuyenDiem() { // Hàm thực hiện chuyển điểm giữa hai ví
-        if (currentUser.empty()) { // Kiểm tra xem đã đăng nhập chưa
-            cout << "Vui lòng đăng nhập trước." << endl; // Thông báo nếu chưa đăng nhập
-            return; // Thoát hàm
+    //            gửi OTP để xác nhận giao dịch, cập nhật số dư ví và lưu lại lịch sử giao dịch.
+    void chuyenDiem() {
+        if (currentUser.empty()) {   // Yêu cầu đăng nhập trước
+            cout << "Vui lòng đăng nhập trước." << endl;
+            return;
         }
-        auto danhsachvi = DanhsachVi(); // Lấy danh sách ví hiện có
-        cout << "\nDanh sách ví của bạn:" << endl; // Hiển thị tiêu đề danh sách ví
-        for (const auto& vi : danhsachvi) { // Duyệt qua danh sách ví
-            if (get<1>(vi) == currentUser) { // Nếu ví thuộc về người dùng hiện tại
-                cout << "- Mã ví: " << get<0>(vi) << " (" << get<2>(vi) // Hiển thị mã ví và loại ví
-                     << "), Số dư: " << get<3>(vi) << " điểm" << endl; // Hiển thị số dư
+        auto danhsachvi = DanhsachVi();      // Lấy danh sách ví
+        cout << "\nDanh sách ví của bạn:" << endl;
+        for (const auto& vi : danhsachvi) {  // Hiển thị các ví thuộc về người dùng hiện tại
+            if (get<1>(vi) == currentUser) {
+                cout << "- Mã ví: " << get<0>(vi) << " (" << get<2>(vi) 
+                     << "), Số dư: " << get<3>(vi) << " điểm" << endl;
             }
         }
-        string maViNguon, maViDich; // Biến lưu mã ví nguồn và đích
-        int soDiem; // Biến lưu số điểm cần chuyển
-        cout << "\nNhập mã ví nguồn: "; // Yêu cầu nhập mã ví nguồn
-        cin >> maViNguon; // Đọc mã ví nguồn
-        cout << "Nhập mã ví đích: "; // Yêu cầu nhập mã ví đích
-        cin >> maViDich; // Đọc mã ví đích
-        cout << "Nhập số điểm cần chuyển: "; // Yêu cầu nhập số điểm
-        cin >> soDiem; // Đọc số điểm
-        if (soDiem <= 0) { // Kiểm tra số điểm có lớn hơn 0 không
-            cout << "Số điểm phải lớn hơn 0" << endl; // Thông báo nếu số điểm không hợp lệ
-            return; // Thoát hàm
+        string maViNguon, maViDich;
+        int soDiem;
+        cout << "\nNhập mã ví nguồn: ";
+        cin >> maViNguon;
+        cout << "Nhập mã ví đích: ";
+        cin >> maViDich;
+        cout << "Nhập số điểm cần chuyển: ";
+        cin >> soDiem;
+        if (soDiem <= 0) {  // Kiểm tra số điểm hợp lệ
+            cout << "Số điểm phải lớn hơn 0" << endl;
+            return;
         }
-        bool validNguon = false; // Biến kiểm tra ví nguồn hợp lệ
-        bool validDich = false; // Biến kiểm tra ví đích hợp lệ
-        int viNguonIndex = 0; // Chỉ số của ví nguồn trong vector
-        int viDichIndex = 0; // Chỉ số của ví đích trong vector
-        for (size_t i = 0; i < danhsachvi.size(); ++i) { // Duyệt qua danh sách ví
-            if (get<0>(danhsachvi[i]) == maViNguon && get<1>(danhsachvi[i]) == currentUser) { // Nếu mã ví nguồn khớp và thuộc người dùng
-                validNguon = true; // Đánh dấu ví nguồn hợp lệ
-                viNguonIndex = i; // Lưu chỉ số ví nguồn
+        bool validNguon = false;   // kiểm tra ví nguồn hợp lệ
+        bool validDich = false;    // kiểm tra ví đích hợp lệ
+        int viNguonIndex = 0;      // Chỉ số của ví nguồn trong vector
+        int viDichIndex = 0;       // Chỉ số của ví đích trong vector
+        for (size_t i = 0; i < danhsachvi.size(); ++i) {  // Duyệt qua danh sách ví để tìm ví nguồn và đích
+            // Kiểm tra ví nguồn phải thuộc về người dùng hiện tại
+            if (get<0>(danhsachvi[i]) == maViNguon && get<1>(danhsachvi[i]) == currentUser) {
+                validNguon = true;
+                viNguonIndex = i;
             }
-            if (get<0>(danhsachvi[i]) == maViDich) { // Nếu mã ví đích tồn tại
-                validDich = true; // Đánh dấu ví đích hợp lệ
-                viDichIndex = i; // Lưu chỉ số ví đích
+            if (get<0>(danhsachvi[i]) == maViDich) {   // Kiểm tra ví đích tồn tại
+                validDich = true;
+                viDichIndex = i;
             }
         }
-        if (!validNguon) { // Kiểm tra ví nguồn
-            cout << "Ví nguồn không hợp lệ hoặc không thuộc quyền sở hữu của bạn." << endl; // Thông báo lỗi
-            return; // Thoát hàm
+        if (!validNguon) {
+            cout << "Ví nguồn không hợp lệ hoặc không thuộc quyền sở hữu của bạn." << endl;
+            return;
         }
-        if (!validDich) { // Kiểm tra ví đích
-            cout << "Ví đích không tồn tại." << endl; // Thông báo lỗi
-            return; // Thoát hàm
+        if (!validDich) {
+            cout << "Ví đích không tồn tại." << endl;
+            return;
         }
-        if (get<3>(danhsachvi[viNguonIndex]) < soDiem) { // Kiểm tra số dư ví nguồn
-            cout << "Số dư không đủ để thực hiện giao dịch." << endl; // Thông báo nếu số dư không đủ
-            return; // Thoát hàm
+        if (get<3>(danhsachvi[viNguonIndex]) < soDiem) {   // Kiểm tra số dư ví nguồn
+            cout << "Số dư không đủ để thực hiện giao dịch." << endl;
+            return;
         }
-        string otp = "DUMMY_OTP"; // Giả lập OTP vì hàm TaoOTP() không thuộc phần phụ trách
-        ofstream otpFile(Fileotp); // Mở tệp fileotp.txt để ghi OTP
-        otpFile << currentUser << "," << otp << endl; // Ghi tên người dùng và OTP vào tệp
-        otpFile.close(); // Đóng tệp OTP
-        cout << "Đã gửi mã OTP đến email của bạn." << endl; // Thông báo giả lập gửi OTP
-        string inputOTP; // Biến lưu OTP do người dùng nhập
-        cout << "Nhập OTP: "; // Yêu cầu nhập OTP
-        cin >> inputOTP; // Đọc OTP từ người dùng
-        if (inputOTP != otp) { // Kiểm tra OTP có khớp không
-            cout << "OTP không đúng. Giao dịch bị hủy." << endl; // Thông báo nếu OTP sai
-            return; // Thoát hàm
+        string otp = TaoOTP();  // Tạo OTP cho giao dịch (giả lập)
+        ofstream otpFile(Fileotp);
+        otpFile << currentUser << "," << otp << endl;
+        otpFile.close();
+        auto tk = TK();
+        for (const auto& t : tk) {
+            if (get<0>(t) == currentUser) {   // Tìm email của người dùng để thông báo gửi OTP
+                cout << "Đã gửi mã OTP "  << " đến email " << get<2>(t) << endl;
+                break;
+            }
         }
-        get<3>(danhsachvi[viNguonIndex]) -= soDiem; // Trừ số điểm từ ví nguồn
-        get<3>(danhsachvi[viDichIndex]) += soDiem; // Cộng số điểm vào ví đích
-        luuDuLieuVi(danhsachvi); // Lưu danh sách ví đã cập nhật
-        time_t now = time(0); // Lấy thời gian hiện tại
-        string tg = ctime(&now); // Chuyển thời gian thành chuỗi
-        tg.pop_back(); // Xóa ký tự xuống dòng cuối chuỗi thời gian
-        string maGD = "GD" + to_string(LichsuGiaodich().size() + 1); // Tạo mã giao dịch (GD + số thứ tự)
-        auto lsgd = LichsuGiaodich(); // Lấy danh sách giao dịch hiện có
-        lsgd.emplace_back(maGD, maViNguon, maViDich, soDiem, tg, "thanh_cong"); // Thêm giao dịch mới vào danh sách
-        luuDuLieuGiaodich(lsgd); // Lưu danh sách giao dịch
-        cout << "Chuyển điểm thành công!" << endl; // Thông báo giao dịch thành công
-        cout << "Mã giao dịch: " << maGD << endl; // Hiển thị mã giao dịch
+        string inputOTP;
+        cout << "Nhập OTP: ";
+        cin >> inputOTP;
+        if (inputOTP != otp) {
+            cout << "OTP không đúng. Giao dịch bị hủy." << endl;
+            return;
+        }
+        // Thực hiện chuyển điểm
+        get<3>(danhsachvi[viNguonIndex]) -= soDiem;  // Trừ điểm từ ví nguồn
+        get<3>(danhsachvi[viDichIndex]) += soDiem;   // Cộng điểm vào ví đích
+        luuDuLieuVi(danhsachvi);    // Lưu lại dữ liệu ví đã cập nhật
+        time_t now = time(0);       // Lấy thời gian hiện tại
+        string tg = ctime(&now);    // Chuyển đổi thời gian sang chuỗi
+        tg.pop_back();              // Xóa ký tự newline cuối chuỗi thời gian
+        string maGD = "GD" + to_string(LichsuGiaodich().size() + 1);   // Tạo mã giao dịch mới
+        auto lsgd = LichsuGiaodich();   // Lấy lịch sử giao dịch hiện có
+        lsgd.emplace_back(maGD, maViNguon, maViDich, tg, "thanh_cong", soDiem);   // Thêm giao dịch mới vào lịch sử
+        luuDuLieuGiaodich(lsgd);       // Lưu lại lịch sử giao dịch
+        cout << "Chuyển điểm thành công!" << endl;
+        cout << "Mã giao dịch: " << maGD << endl;
     }
 
 // Xem lịch sử giao dịch của người dùng hiện tại
@@ -581,9 +604,8 @@ public:
                 cout << "Mã GD: " << get<0>(gd) 
                      << " | Từ: " << get<1>(gd) 
                      << " | Đến: " << get<2>(gd)
-                     << " | Số điểm: " << get<3>(gd)
-                     << " | Thời gian: " << get<4>(gd)
-                     << " | Trạng thái: " << get<5>(gd) << endl;
+                     << " | Thời gian " << get<3>(gd)
+                     << " | Trạng thái: " << get<4>(gd) << " | Số điểm: " << get<5>(gd) << endl;
                 found = true;
             }
         }
@@ -594,65 +616,101 @@ public:
 
 // Tạo ví mới cho người dùng hiện tại
 // Quy trình: Cho phép người dùng chọn tạo ví chính (100 điểm) hoặc ví phụ (0 điểm),
-//Tạo mã ví và lưu ví mới.
-    void taoViMoi() { // Hàm tạo ví mới cho người dùng hiện tại
-        if (currentUser.empty()) { // Kiểm tra xem đã đăng nhập chưa
-            cout << "Vui lòng đăng nhập trước." << endl; // Thông báo nếu chưa đăng nhập
-            return; // Thoát hàm
+    //            tạo mã ví và lưu ví mới.
+    void taoViMoi() {
+        if (currentUser.empty()) {
+            cout << "Vui lòng đăng nhập trước." << endl;  // Yêu cầu đăng nhập trước
+            return;
         }
-        cout << "\nTạo ví mới:" << endl; // Hiển thị tiêu đề
-        cout << "1. Ví chính (được tặng 100 điểm)" << endl; // Lựa chọn ví chính
-        cout << "2. Ví phụ (không có điểm)" << endl; // Lựa chọn ví phụ
-        cout << "Chọn loại ví: "; // Yêu cầu nhập lựa chọn
-        int choice; // Biến lưu lựa chọn
-        cin >> choice; // Đọc lựa chọn từ người dùng
-        if (choice != 1 && choice != 2) { // Kiểm tra lựa chọn hợp lệ
-            cout << "Lựa chọn không hợp lệ." << endl; // Thông báo nếu lựa chọn không đúng
-            return; // Thoát hàm
+        cout << "\nTạo ví mới:" << endl;
+        cout << "1. Ví chính (được tặng 100 điểm)" << endl;
+        cout << "2. Ví phụ (không có điểm)" << endl;
+        cout << "Chọn loại ví: ";
+        
+        int choice;
+        cin >> choice;
+        if (choice != 1 && choice != 2) {   
+            cout << "Lựa chọn không hợp lệ." << endl;
+            return;
         }
-        string loai = (choice == 1) ? "chinh" : "phu"; // Gán loại ví: "chinh" nếu chọn 1, "phu" nếu chọn 2
-        int soDu = (choice == 1) ? 100 : 0; // Gán số dư: 100 cho ví chính, 0 cho ví phụ
-        auto danhsachvi = DanhsachVi(); // Lấy danh sách ví hiện có
-        string maVi = TaomaVi(); // Tạo mã ví mới
-        danhsachvi.emplace_back(maVi, currentUser, loai, soDu); // Thêm ví mới vào danh sách
-        luuDuLieuVi(danhsachvi); // Lưu danh sách ví vào tệp
-        cout << "Đã tạo ví " << loai << " mới với mã: " << maVi << endl; // Thông báo ví đã tạo
-        cout << "Số dư ban đầu: " << soDu << " điểm" << endl; // Hiển thị số dư ban đầu
+        string loai = (choice == 1) ? "chinh" : "phu";   // Đặt loại ví
+        int soDu = (choice == 1) ? 100 : 0;              // Đặt số dư ban đầu
+        auto danhsachvi = DanhsachVi();   // Lấy danh sách ví hiện có
+        string maVi = TaomaVi();          // Tạo mã ví mới
+        danhsachvi.emplace_back(maVi, currentUser, loai, soDu);   // Thêm ví mới vào danh sách
+        luuDuLieuVi(danhsachvi);     // Lưu lại danh sách ví
+        cout << "Đã tạo ví " << loai << " mới với mã: " << maVi << endl;
+        cout << "Số dư ban đầu: " << soDu << " điểm" << endl;
     }
 
 // Xem số dư của tài khoản hoặc một tài khoản cụ thể (nếu là admin)
 // Quy trình: Hiển thị tất cả các ví và số dư của người dùng hiện tại.
-//Nếu là admin, có thể xem ví của người dùng khác.
-    void XemsoduTk() { // Hàm hiển thị số dư ví của tài khoản
-        if (currentUser.empty()) { // Kiểm tra xem đã đăng nhập chưa
-            cout << "Vui lòng đăng nhập trước." << endl; // Thông báo nếu chưa đăng nhập
-            return; // Thoát hàm
+    //            Nếu là admin, có thể xem ví của người dùng khác.
+    void XemsoduTk() {
+        if (currentUser.empty()) {    // Yêu cầu đăng nhập trước
+            cout << "Vui lòng đăng nhập trước." << endl;
+            return;
         }
-        string TenTk = currentUser; // Mặc định xem số dư của người dùng hiện tại
-        if (isAdmin) { // Nếu là admin
-            cout << "Nhập tên tài khoản muốn xem (bỏ trống để xem của bạn): "; // Yêu cầu nhập tên tài khoản
-            cin.ignore(); // Xóa bộ đệm đầu vào
-            getline(cin, TenTk); // Đọc tên tài khoản
-            if (TenTk.empty()) { // Nếu không nhập, dùng tài khoản hiện tại
-                TenTk = currentUser; // Gán lại tên tài khoản hiện tại
+        string TenTk = currentUser;   // Mặc định là người dùng hiện tại
+        if (isAdmin) {   // Nếu là admin, có thể chọn xem của tài khoản khác
+            cout << "Nhập tên tài khoản muốn xem (bỏ trống để xem của bạn): ";
+            cin.ignore();
+            getline(cin, TenTk);
+            if (TenTk.empty()) {   // Nếu bỏ trống, vẫn là người dùng hiện tại
+                TenTk = currentUser;
             }
         }
-        auto danhsachvi = DanhsachVi(); // Lấy danh sách ví hiện có
-        bool found = false; // Biến kiểm tra xem có tìm thấy ví nào không
-        cout << "\nDanh sách ví của " << TenTk << ":" << endl; // Hiển thị tiêu đề
-        for (const auto& vi : danhsachvi) { // Duyệt qua danh sách ví
-            if (get<1>(vi) == TenTk) { // Nếu ví thuộc tài khoản được chỉ định
-                cout << "- Mã ví: " << get<0>(vi) // Hiển thị mã ví
-                     << " | Loại: " << get<2>(vi) // Hiển thị loại ví
-                     << " | Số dư: " << get<3>(vi) << " điểm" << endl; // Hiển thị số dư
-                found = true; // Đánh dấu đã tìm thấy ví
+        auto danhsachvi = DanhsachVi();   // Lấy danh sách ví
+        bool found = false;               // kiểm tra xem có ví nào được tìm thấy không
+        cout << "\nDanh sách ví của " << TenTk << ":" << endl;
+        for (const auto& vi : danhsachvi) {   // Duyệt qua danh sách ví
+            if (get<1>(vi) == TenTk) {        // Nếu ví thuộc về tài khoản được chỉ định
+                cout << "- Mã ví: " << get<0>(vi) 
+                     << " | Loại: " << get<2>(vi) 
+                     << " | Số dư: " << get<3>(vi) << " điểm" << endl;
+                found = true;
             }
         }
-        if (!found) { // Nếu không tìm thấy ví
-            cout << "Không tìm thấy ví nào." << endl; // Thông báo không có ví
+        if (!found) {
+            cout << "Không tìm thấy ví nào." << endl;
         }
     }
+
+// Hàm quên mật khẩu
+// Quy trình: đọc tên tài khoản, nhập đúng otp để đổi mật khẩu
+void quenmatkhau() {
+    string TenTk, Matkhaumoi;           
+        cout << "Nhập tên tài khoản: ";
+        cin >> TenTk;
+        if (!KiemtraTenlogin(TenTk)) {   // Kiểm tra tên người dùng có tồn tại không
+            cout << "Tên tài khoản không đúng" << endl;
+            return;
+        }
+        string otp = TaoOTP();  // Tạo OTP cho giao dịch (giả lập)
+        ofstream otpFile(Fileotp);
+        otpFile << currentUser << "," << otp << endl;
+        otpFile.close();
+        auto tk = TK();
+        for (const auto& t : tk) {
+            if (get<0>(t) == TenTk) {   // Tìm email của người dùng để thông báo gửi OTP
+                cout << "Đã gửi mã OTP "  << " đến email " << get<2>(t) << endl;
+                break;
+            }
+            cout << "Nhập mật khẩu mới: ";
+            cin >> Matkhaumoi;
+            auto tkList = TK();       // Lấy danh sách tài khoản
+        for (auto& t : tkList) {  // Tìm tài khoản hiện tại để cập nhật mật khẩu
+            if (get<0>(t) == TenTk) {   
+                get<1>(t) = to_string(hashFunction(Matkhaumoi));  // Cập nhật mật khẩu đã băm
+                break;
+            }
+        }
+        LuulaiTaikhoan(tkList);  // Lưu lại danh sách tài khoản đã cập nhật
+        cout << "Đổi mật khẩu thành công!" << endl;
+    }
+} 
 };
+
 int main() {
     srand(time(0));  // Khởi tạo bộ sinh số ngẫu nhiên với thời gian hiện tại
     // Tạo đối tượng QuanlyTaikhoan với các tệp dữ liệu
