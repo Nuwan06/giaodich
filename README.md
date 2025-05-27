@@ -1,83 +1,117 @@
-# Hệ Thống Quản Lý Ví Điểm
+# README - Hệ Thống Quản Lý Ví Điểm
 
-## Mô tả
-Đây là một hệ thống quản lý ví điểm được viết bằng C++, cho phép người dùng thực hiện các chức năng như:
-- Đăng ký và đăng nhập tài khoản
-- Quản lý ví điểm (tạo ví mới, xem số dư, chuyển điểm)
+## Giới thiệu dự án
+Hệ thống Quản lý Ví Điểm là một ứng dụng console được phát triển bằng C++ giúp quản lý tài khoản người dùng, ví điểm và các giao dịch chuyển điểm giữa các ví. Hệ thống bao gồm các chức năng chính:
+- Đăng ký/đăng nhập tài khoản với xác thực OTP
+- Quản lý ví (tạo mới, xem số dư)
+- Thực hiện giao dịch chuyển điểm
 - Xem lịch sử giao dịch
-- Đổi mật khẩu
-- Quản lý tài khoản (dành cho admin)
+- Phân quyền admin/user
 
-## Tính năng chính
-1. **Quản lý tài khoản**
-   - Đăng ký tài khoản mới với mật khẩu tự động hoặc tự nhập
-   - Đăng nhập với xác thực OTP qua email (mô phỏng)
-   - Đổi mật khẩu với xác thực OTP
-   - Phân quyền admin/user
+## Thành viên tham gia và phân công công việc
 
-2. **Quản lý ví điểm**
-   - Tạo ví mới (ví chính hoặc ví phụ)
-   - Xem số dư các ví
-   - Chuyển điểm giữa các ví với xác thực OTP
-
-3. **Lịch sử giao dịch**
-   - Xem toàn bộ lịch sử giao dịch của tài khoản
-
-4. **Chức năng admin**
-   - Xem danh sách tất cả tài khoản
-   - Tạo tài khoản mới
-   - Điều chỉnh thông tin tài khoản
-
-## Công nghệ sử dụng
-- Ngôn ngữ: C++
-- Thư viện chuẩn: iostream, string, vector, fstream, sstream, ctime, algorithm, iomanip, cctype, functional, cstdlib
-
-## Cài đặt và chạy chương trình
-1. Clone repository này
-2. Biên dịch chương trình bằng trình biên dịch C++ (g++, clang++, v.v.)
-   ```
-   g++ main.cpp -o point_wallet_system
-   ```
-3. Chạy chương trình
-   ```
-   ./point_wallet_system
-   ```
-
-## Cấu trúc tệp
-- `accounts.txt`: Lưu trữ thông tin tài khoản
-- `filevidiem.txt`: Lưu trữ thông tin các ví
-- `filegiaodich.txt`: Lưu trữ lịch sử giao dịch
-- `fileotp.txt`: Lưu trữ mã OTP tạm thời (mô phỏng)
-
-## Tài khoản mặc định
-- Tài khoản admin: `admin` (được tạo tự động khi chạy chương trình lần đầu)
-- Ví tổng: `TONG0001` (tự động tạo với 100,000,000 điểm)
-
-## Hướng dẫn sử dụng
-1. Đăng ký tài khoản mới hoặc đăng nhập bằng tài khoản admin
-2. Tùy theo quyền (admin/user) mà bạn có thể sử dụng các chức năng tương ứng
-3. Các thao tác quan trọng đều yêu cầu xác thực OTP (mã sẽ hiển thị trên màn hình)
-
-## Thành viên nhóm và công việc được giao
-- **Trần Thanh Nhuận**: Quản lý Tài khoản & Xác thực
+### **Trần Thanh NHuận**: Quản lý Tài khoản & Xác thực
+- Phụ trách:
   - Hệ thống đăng nhập/đăng ký (`login()`, `TaoTaikhoan()`)
   - Quản lý mật khẩu (`ThaydoiMatkhau()`, `hashFunction()`)
   - Hệ thống OTP (`TaoOTP()`, xác thực OTP)
-  - Quản lý thông tin tài khoản (`KiemtraTenlogin()`, `KiemtranThongtinTk()`)
   - File `accounts.txt`
-- **Mạc Thanh Toàn**: Quản lý Ví & Giao dịch
+
+### **Mạc Thanh Toàn**: Quản lý Ví & Giao dịch
+- Phụ trách:
   - Hệ thống ví (`DanhsachVi()`, `taoViMoi()`, `TaomaVi()`)
   - Chức năng chuyển điểm (`chuyenDiem()`)
   - Quản lý số dư (`XemsoduTk()`)
   - File `filevidiem.txt`
-- **Nguyễn Ngọc Toàn**:  Quản lý Giao dịch & Admin
+
+### **Nguyễn Ngọc Toàn**: Quản lý Giao dịch & Admin
+- Phụ trách:
   - Lịch sử giao dịch (`LichsuGiaodich()`, `xemLichSuGiaoDich()`)
   - Chức năng admin (`XemDanhSachNhom()`, `AdminTaoTaiKhoan()`, `DieuChinhThongTin()`)
   - File `filegiaodich.txt`
   - File `fileotp.txt`
+
+## Đặc tả chức năng
+
+### 1. Quản lý tài khoản
+- Đăng ký tài khoản mới với xác thực email và CCCD
+- Đăng nhập với xác thực 2 bước (mật khẩu + OTP)
+- Đổi mật khẩu với xác thực OTP
+- Phân quyền admin/user
+
+### 2. Quản lý ví
+- Tạo ví mới (ví chính/phụ)
+- Xem số dư các ví
+- Chuyển điểm giữa các ví với xác thực OTP
+
+### 3. Quản lý giao dịch
+- Xem lịch sử giao dịch
+- Kiểm tra trạng thái giao dịch
+
+### 4. Chức năng admin
+- Xem danh sách tất cả tài khoản
+- Tạo tài khoản mới
+- Điều chỉnh thông tin tài khoản
+
+## Cài đặt và chạy chương trình
+
+### Yêu cầu hệ thống
+- Trình biên dịch C++ (g++, clang++, Visual Studio)
+- Hệ điều hành: Windows/Linux/macOS
+- Thư viện chuẩn: iostream, string, vector, fstream, sstream, ctime, algorithm, iomanip, cctype, functional, cstdlib
+
+### Các bước cài đặt
+1. Clone repository:
+   ```
+   git clone [repository-url]
+   ```
+2. Biên dịch chương trình:
+   ```
+   g++ main.cpp -o point_wallet_system
+   ```
+3. Chạy chương trình:
+   ```
+   ./point_wallet_system
+   ```
+
+### Các file dữ liệu
+- `accounts.txt`: Lưu thông tin tài khoản
+- `filevidiem.txt`: Lưu thông tin các ví
+- `filegiaodich.txt`: Lưu lịch sử giao dịch
+- `fileotp.txt`: Lưu OTP tạm thời
+
+## Hướng dẫn sử dụng
+
+1. **Đăng ký tài khoản**:
+   - Chọn chức năng 2 từ menu chính
+   - Nhập thông tin theo hướng dẫn
+
+2. **Đăng nhập**:
+   - Chọn chức năng 1 từ menu chính
+   - Nhập tên đăng nhập và mật khẩu
+   - Nhập OTP được gửi đến email (hiển thị trên console)
+
+3. **Tạo ví mới**:
+   - Đăng nhập và chọn chức năng "Tạo ví mới"
+   - Chọn loại ví (chính/phụ)
+
+4. **Chuyển điểm**:
+   - Chọn chức năng "Chuyển điểm"
+   - Nhập thông tin ví nguồn, ví đích và số điểm
+   - Xác nhận bằng OTP
+
+5. **Xem lịch sử giao dịch**:
+   - Chọn chức năng "Xem lịch sử giao dịch"
+
+## Tài khoản mặc định
+- Tài khoản admin: `admin` (tự động tạo khi chạy lần đầu)
+- Ví tổng hệ thống: `TONG0001` (100,000,000 điểm)
+
 ## Lưu ý
-- Đảm bảo file `accounts.txt`, `filevidiem.txt`, `filegiaodich.txt` và `fileotp.txt` có quyền đọc/ghi.
-- OTP trong chương trình được sinh ngẫu nhiên và hiển thị (mô phỏng). Trong thực tế, cần tích hợp gửi OTP qua email/SMS.
+- Chương trình sử dụng mô phỏng gửi OTP (OTP sẽ hiển thị trên console thay vì gửi email thực)
+- Mật khẩu được lưu dưới dạng băm để đảm bảo an toàn
+- Dữ liệu được lưu trong các file text đơn giản
+
 ## TÀI LIỆU THAM KHẢO
 
 [1] "C++ Language Reference", cppreference.com. Truy cập tại: https://en.cppreference.com/w/cpp  
@@ -90,6 +124,7 @@
 [8] "Structs and Classes in C++", Programiz. Truy cập tại: https://www.programiz.com/cpp-programming/structure  
 [9] "system() Function in C++", cplusplus.com. Truy cập tại: https://cplusplus.com/reference/cstdlib/system/  
 [10] GeeksforGeeks. (n.d.). Hashing Data Structure. Truy cập từ: https://www.geeksforgeeks.org/hashing-data-structure/
-
+[11] Hướng dẫn sử dụng Git: https://git-scm.com/doc
+[12] Mẫu thiết kế hệ thống quản lý ví điện tử
 
 
