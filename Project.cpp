@@ -271,7 +271,7 @@ public:
         } else {     // Nếu không, tự động tạo mật khẩu
             Matkhau = TaoMatkhauTudong();
             cout << "Mật khẩu tự động được tạo: " << Matkhau << endl;
-        ofstream outputFile("matkhautudong.txt");
+        ofstream outputFile("matkhautudong.txt", ios::app);
         outputFile << TenTk << "," << Matkhau << endl;
         outputFile.close();
         }
