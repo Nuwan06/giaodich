@@ -117,6 +117,20 @@ public:
         Fileotp = otp;
         currentUser = "";
         isAdmin = false;
+        auto tk = TK();                   // Lấy danh sách tài khoản hiện có
+        bool hasAdmin = false; 
+        for (const auto& Tk : tk) {        // Duyệt qua danh sách tài khoản
+            if (get<0>(Tk) == "admin") {   // Nếu tìm thấy tài khoản admin trả về true
+                hasAdmin = true;
+                break;                      // thoát khỏi hàm
+            }
+        }
+        if (!hasAdmin) {                    // Mấu chưa có tài khoản admin
+            // Thêm tàu khoản admin với tài khoản "admin" mật khẩu abcd1234 
+            string mkadmin = "abcd1234";
+            tk.emplace_back("admin", to_string(hashFunction(mkadmin)), "nhuantranthanh@gmail.com", "01234567" , "1");
+            LuulaiTaikhoan(tk);            // Lưu lại tài khoản admin
+        }
     }
     
     // Getter methods
@@ -141,6 +155,10 @@ public:
         } else {
             Matkhau = TaoMatkhauTudong();
             cout << "Mật khẩu tự động được tạo: " << Matkhau << endl;
+             ofstream outputFile("matkhautudong.txt");
+        outputFile << TenTk << "," << Matkhau << endl;
+        outputFile.close();
+        
         }
         cout << "Nhập email: ";
         cin >> email;
@@ -208,7 +226,7 @@ public:
             return;
         }
         string MatkhauCu, MatkhauMoi, XacnhanMatkhauMoi, inputOTP;
-        cout << "Nhập mật khẩu cũ: ";
+         cout << "Nhập mật khẩu cũ của tài khoản " << currentUser <<" :";
         cin >> MatkhauCu;
         if (!KiemtranThongtinTk(currentUser, MatkhauCu)) {
             cout << "Mật khẩu cũ không đúng." << endl;
@@ -249,6 +267,37 @@ public:
         LuulaiTaikhoan(tkList);
         cout << "Đổi mật khẩu thành công!" << endl;
     }
+    void quenmatkhau() {
+    string TenTk, Matkhaumoi;           
+        cout << "Nhập tên tài khoản: ";
+        cin >> TenTk;
+        if (!KiemtraTenlogin(TenTk)) {   // Kiểm tra tên người dùng có tồn tại không
+            cout << "Tên tài khoản không đúng" << endl;
+            return;
+        }
+        string otp = TaoOTP();  // Tạo OTP cho giao dịch (giả lập)
+        ofstream otpFile(Fileotp);
+        otpFile << currentUser << "," << otp << endl;
+        otpFile.close();
+        auto tk = TK();
+        for (const auto& t : tk) {
+            if (get<0>(t) == TenTk) {   // Tìm email của người dùng để thông báo gửi OTP
+                cout << "Đã gửi mã OTP "  << " đến email " << get<2>(t) << endl;
+                break;
+            }
+            cout << "Nhập mật khẩu mới: ";
+            cin >> Matkhaumoi;
+            auto tkList = TK();       // Lấy danh sách tài khoản
+        for (auto& t : tkList) {  // Tìm tài khoản hiện tại để cập nhật mật khẩu
+            if (get<0>(t) == TenTk) {   
+                get<1>(t) = to_string(hashFunction(Matkhaumoi));  // Cập nhật mật khẩu đã băm
+                break;
+            }
+        }
+        LuulaiTaikhoan(tkList);  // Lưu lại danh sách tài khoản đã cập nhật
+        cout << "Đổi mật khẩu thành công!" << endl;
+    }
+} 
 
     
 };
@@ -262,8 +311,9 @@ int main() {
         cout << "\n--- Chức năng ---" << endl;
         cout << "1. Tạo tài khoản" << endl;
         cout << "2. Đăng nhập" << endl;
+        cout << "3. Quên mật khẩu" << endl;
         if (loggedIn) {
-            cout << "3. Đổi mật khẩu" << endl;
+            cout << "4. Đổi mật khẩu" << endl;
             cout << "0. Thoát" << endl;
         } else {
             cout << "0. Thoát" << endl;
@@ -277,10 +327,13 @@ int main() {
             case 2:
                 loggedIn = x.login();
                 break;
-            case 3:
+                case 3:
+                x.quenmatkhau();
+            case 4:
                 if (loggedIn) x.ThaydoiMatkhau();
                 else cout << "Vui lòng đăng nhập trước." << endl;
                 break;
+
             case 0:
                 cout << "Đang thoát..." << endl;
                 break;
