@@ -59,9 +59,9 @@
 3. Các thao tác quan trọng đều yêu cầu xác thực OTP (mã sẽ hiển thị trên màn hình)
 
 ## Thành viên nhóm và công việc được giao
-- **Trần Thanh Nhuận**: Phát triển chức năng tạo tài khoản, đăng nhập, OTP.
-- **Mạc Thanh Toàn**: Phát triển chức năng đổi mật khẩu, xem số dư, thêm điểm.
-- **Nguyễn Ngọc Toàn**: Phát triển chức năng giao dịch giữa ví, lịch sử giao dịch, kiểm tra hệ thống.
+- **Trần Thanh Nhuận**: Đăng ký tài khoản (TaoTaikhoan, AdminTaoTaiKhoan). Đăng nhập (login). Đổi mật khẩu (ThaydoiMatkhau).
+- **Mạc Thanh Toàn**: Tạo ví mới (taoViMoi). Xem số dư tài khoản (XemsoduTk). Tạo mã ví (TaomaVi).
+- **Nguyễn Ngọc Toàn**: Chuyển điểm (chuyenDiem). Xem lịch sử giao dịch (xemLichSuGiaoDich). Quản lý danh sách tài khoản và điều chỉnh thông tin tài khoản (XemDanhSachNhom, DieuChinhThongTin).
 
 ## Lưu ý
 - Đảm bảo file `accounts.txt`, `filevidiem.txt`, `filegiaodich.txt` và `fileotp.txt` có quyền đọc/ghi.
