@@ -688,7 +688,7 @@ void quenmatkhau() {
         }
         string otp = TaoOTP();  // Tạo OTP cho giao dịch (giả lập)
         ofstream otpFile(Fileotp);
-        otpFile << currentUser << "," << otp << endl;
+        otpFile << TenTk << "," << otp << endl;
         otpFile.close();
         auto tk = TK();
         for (const auto& t : tk) {
@@ -696,6 +696,14 @@ void quenmatkhau() {
                 cout << "Đã gửi mã OTP "  << " đến email " << get<2>(t) << endl;
                 break;
             }
+        }
+        string inputOTP;
+        cout << "Nhập OTP: ";
+        cin >> inputOTP;
+        if (inputOTP != otp) {
+            cout << "OTP không đúng. Giao dịch bị hủy." << endl;
+            return;
+        }
             cout << "Nhập mật khẩu mới: ";
             cin >> Matkhaumoi;
             auto tkList = TK();       // Lấy danh sách tài khoản
@@ -707,8 +715,7 @@ void quenmatkhau() {
         }
         LuulaiTaikhoan(tkList);  // Lưu lại danh sách tài khoản đã cập nhật
         cout << "Đổi mật khẩu thành công!" << endl;
-    }
-} 
+        }
 };
 
 int main() {
