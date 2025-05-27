@@ -23,7 +23,6 @@ string TaomaVi() { // Khai báo hàm trả về chuỗi mã ví
 class WalletManagement { // Khai báo lớp WalletManagement
 private:
     string Filevi; // Đường dẫn đến tệp filevidiem.txt lưu dữ liệu ví
-    string Filegiaodich; // Đường dẫn đến tệp filegiaodich.txt lưu lịch sử giao dịch
     string Fileotp; // Đường dẫn đến tệp fileotp.txt lưu OTP tạm thời
     string currentUser; // Lưu tên người dùng hiện tại đang đăng nhập
     bool isAdmin; // Biến kiểm tra xem người dùng hiện tại có phải admin không
@@ -61,42 +60,7 @@ private:
         }
     }
 
-    // Đọc tất cả dữ liệu giao dịch từ tệp lịch sử giao dịch
-    vector<tuple<string, string, string, int, string, string>> LichsuGiaodich() { // Hàm trả về vector các tuple giao dịch
-        vector<tuple<string, string, string, int, string, string>> Giaodich; // Vector lưu danh sách giao dịch
-        ifstream inputFile(Filegiaodich); // Mở tệp filegiaodich.txt để đọc
-        string line; // Biến lưu từng dòng đọc từ tệp
-        while (getline(inputFile, line)) { // Đọc từng dòng cho đến khi hết tệp
-            stringstream ss(line); // Tạo luồng chuỗi để phân tích dòng
-            string ma, nguon, dich, thoigian, trangthai; // Biến lưu mã giao dịch, ví nguồn, ví đích, thời gian, trạng thái
-            int diem; // Biến lưu số điểm giao dịch
-            getline(ss, ma, ','); // Đọc mã giao dịch
-            getline(ss, nguon, ','); // Đọc mã ví nguồn
-            getline(ss, dich, ','); // Đọc mã ví đích
-            ss >> diem; // Đọc số điểm
-            cin.ignore(); // Bỏ qua ký tự phân tách (lỗi: cin.ignore() không đúng ngữ cảnh, nên dùng ss.ignore())
-            getline(ss, thoigian, ','); // Đọc thời gian giao dịch
-            getline(ss, trangthai); // Đọc trạng thái giao dịch
-            Giaodich.emplace_back(ma, nguon, dich, diem, thoigian, trangthai); // Thêm tuple giao dịch vào vector
-        }
-        inputFile.close(); // Đóng tệp sau khi đọc
-        return Giaodich; // Trả về vector chứa danh sách giao dịch
-    }
-
-    // Lưu danh sách giao dịch vào tệp
-    void luuDuLieuGiaodich(const vector<tuple<string, string, string, int, string, string>>& Lichsu) { // Hàm lưu vector giao dịch vào tệp
-        ofstream outputFile(Filegiaodich); // Mở tệp filegiaodich.txt để ghi (ghi đè)
-        if (outputFile.is_open()) { // Kiểm tra xem tệp có mở thành công không
-            for (const auto& gd : Lichsu) { // Duyệt qua từng tuple giao dịch trong vector
-                outputFile << get<0>(gd) << "," << get<1>(gd) << "," // Ghi mã giao dịch và ví nguồn
-                         << get<2>(gd) << "," << get<3>(gd) << "," // Ghi ví đích và số điểm
-                         << get<4>(gd) << "," << get<5>(gd) << endl; // Ghi thời gian và trạng thái, kết thúc dòng
-            }
-            outputFile.close(); // Đóng tệp sau khi ghi
-        } else {
-            cerr << "Không thể mở tệp để ghi giao dịch." << endl; // Thông báo lỗi nếu không mở được tệp
-        }
-    }
+   
 
 public:
     // Constructor
