@@ -55,7 +55,6 @@ Hệ thống Quản lý Ví Điểm là một ứng dụng console được phá
 
 ### 3. Quản lý giao dịch
 - Xem lịch sử giao dịch
-- Kiểm tra trạng thái giao dịch
 
 ### 4. Chức năng admin
 - Xem danh sách tất cả tài khoản
