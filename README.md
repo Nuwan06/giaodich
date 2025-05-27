@@ -10,7 +10,7 @@ Hệ thống Quản lý Ví Điểm là một ứng dụng console được phá
 
 ## Thành viên tham gia và phân công công việc
 
-### **Trần Thanh NHuận**: Quản lý Tài khoản & Xác thực
+### **Trần Thanh Nhuận**: Quản lý Tài khoản & Xác thực
 - Phụ trách:
   - Hệ thống đăng nhập/đăng ký (`login()`, `TaoTaikhoan()`)
   - Quản lý mật khẩu (`ThaydoiMatkhau()`, `hashFunction()`)
