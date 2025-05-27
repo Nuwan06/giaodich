@@ -8,10 +8,10 @@ Hệ thống Quản lý Ví Điểm là một ứng dụng console được phá
 - Xem lịch sử giao dịch
 - Phân quyền admin/user
 - Nên sử dụng một tệp tin cho tất cả người dùng vì:
- + Dễ xác thực đăng nhập
- +    Quản lý tập trung các tài khoản
- +   Phù hợp cho hệ thống có < 10.000 user
- +   Dễ tri xuất và kiểm tra thông tin 
+  + Dễ xác thực đăng nhập
+  + Quản lý tập trung các tài khoản
+  + Phù hợp cho hệ thống có < 10.000 user
+  + Dễ tri xuất và kiểm tra thông tin 
 
 ## Thành viên tham gia và phân công công việc
 
