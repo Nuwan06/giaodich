@@ -59,10 +59,22 @@
 3. Các thao tác quan trọng đều yêu cầu xác thực OTP (mã sẽ hiển thị trên màn hình)
 
 ## Thành viên nhóm và công việc được giao
-- **Trần Thanh Nhuận**: Đăng ký tài khoản (TaoTaikhoan, AdminTaoTaiKhoan). Đăng nhập (login). Đổi mật khẩu (ThaydoiMatkhau).
-- **Mạc Thanh Toàn**: Tạo ví mới (taoViMoi). Xem số dư tài khoản (XemsoduTk). Tạo mã ví (TaomaVi).
-- **Nguyễn Ngọc Toàn**: Chuyển điểm (chuyenDiem). Xem lịch sử giao dịch (xemLichSuGiaoDich). Quản lý danh sách tài khoản và điều chỉnh thông tin tài khoản (XemDanhSachNhom, DieuChinhThongTin).
-
+- **Trần Thanh Nhuận**: Quản lý Tài khoản & Xác thực
+  - Hệ thống đăng nhập/đăng ký (`login()`, `TaoTaikhoan()`)
+  - Quản lý mật khẩu (`ThaydoiMatkhau()`, `hashFunction()`)
+  - Hệ thống OTP (`TaoOTP()`, xác thực OTP)
+  - Quản lý thông tin tài khoản (`KiemtraTenlogin()`, `KiemtranThongtinTk()`)
+  - File `accounts.txt`
+- **Mạc Thanh Toàn**: Quản lý Ví & Giao dịch
+  - Hệ thống ví (`DanhsachVi()`, `taoViMoi()`, `TaomaVi()`)
+  - Chức năng chuyển điểm (`chuyenDiem()`)
+  - Quản lý số dư (`XemsoduTk()`)
+  - File `filevidiem.txt`
+- **Nguyễn Ngọc Toàn**:  Quản lý Giao dịch & Admin
+  - Lịch sử giao dịch (`LichsuGiaodich()`, `xemLichSuGiaoDich()`)
+  - Chức năng admin (`XemDanhSachNhom()`, `AdminTaoTaiKhoan()`, `DieuChinhThongTin()`)
+  - File `filegiaodich.txt`
+  - File `fileotp.txt`
 ## Lưu ý
 - Đảm bảo file `accounts.txt`, `filevidiem.txt`, `filegiaodich.txt` và `fileotp.txt` có quyền đọc/ghi.
 - OTP trong chương trình được sinh ngẫu nhiên và hiển thị (mô phỏng). Trong thực tế, cần tích hợp gửi OTP qua email/SMS.
