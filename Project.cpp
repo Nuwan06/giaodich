@@ -722,6 +722,7 @@ int main() {
         if (!loggedIn) {    // Menu khi chưa đăng nhập
             cout << "1. Đăng nhập" << endl;
             cout << "2. Đăng ký tài khoản" << endl;
+            cout << "3. Quên mật khẩu" << endl;
             cout << "0. Thoát" << endl;
         } else {    // Menu khi đã đăng nhập
             if (ql.getIsAdmin()) {   // Menu cho admin
@@ -748,6 +749,8 @@ int main() {
                 case 1: loggedIn = ql.login();
                 break;
                 case 2: ql.TaoTaikhoan();
+                break;
+                case 3: ql.quenmatkhau();
                 break;
                 case 0: cout << "Đang thoát..." << endl;
                 return 0;
