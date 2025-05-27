@@ -7,15 +7,23 @@ Hệ thống Quản lý Ví Điểm là một ứng dụng console được phá
 - Thực hiện giao dịch chuyển điểm
 - Xem lịch sử giao dịch
 - Phân quyền admin/user
+- Nên sử dụng một tệp tin cho tất cả người dùng vì:
+-   Dễ xác thực đăng nhập
+-   Quản lý tập trung các tài khoản
+-   Phù hợp cho hệ thống có < 10.000 user
+-   Dễ tri xuất và kiểm tra thông tin 
 
 ## Thành viên tham gia và phân công công việc
 
 ### **Trần Thanh Nhuận**: Quản lý Tài khoản & Xác thực
 - Phụ trách:
   - Hệ thống đăng nhập/đăng ký (`login()`, `TaoTaikhoan()`)
+  - Sinh mật khẩu tự động ( `TaoMatkhauTudong()`)
   - Quản lý mật khẩu (`ThaydoiMatkhau()`, `hashFunction()`)
+  - Hệ thông quên mật khẩu (`quenmatkhau()`)
   - Hệ thống OTP (`TaoOTP()`, xác thực OTP)
   - File `accounts.txt`
+  - File `matkhautudong.txt`
 
 ### **Mạc Thanh Toàn**: Quản lý Ví & Giao dịch
 - Phụ trách:
@@ -37,6 +45,7 @@ Hệ thống Quản lý Ví Điểm là một ứng dụng console được phá
 - Đăng ký tài khoản mới với xác thực email và CCCD
 - Đăng nhập với xác thực 2 bước (mật khẩu + OTP)
 - Đổi mật khẩu với xác thực OTP
+- Quên mật khẩu và đổi lại với xác thực otp
 - Phân quyền admin/user
 
 ### 2. Quản lý ví
@@ -89,7 +98,7 @@ Hệ thống Quản lý Ví Điểm là một ứng dụng console được phá
 2. **Đăng nhập**:
    - Chọn chức năng 1 từ menu chính
    - Nhập tên đăng nhập và mật khẩu
-   - Nhập OTP được gửi đến email (hiển thị trên console)
+   - Nhập OTP được gửi đến email (hiển thị trên `fileotp.txt`)
 
 3. **Tạo ví mới**:
    - Đăng nhập và chọn chức năng "Tạo ví mới"
@@ -102,13 +111,14 @@ Hệ thống Quản lý Ví Điểm là một ứng dụng console được phá
 
 5. **Xem lịch sử giao dịch**:
    - Chọn chức năng "Xem lịch sử giao dịch"
-
+6. **Xem danh sách  tài khoản và điều chỉnh thông tin tài khoản (chỉ dùng cho admin)**:
+   - Chọn chúc năng "Quản lý tài khoản(Chỉ dành cho admin)"
 ## Tài khoản mặc định
-- Tài khoản admin: `admin` (tự động tạo khi chạy lần đầu)
+- Tài khoản admin: `admin` , mật khẩu: `abcd1234` (tự động tạo khi chạy lần đầu)
 - Ví tổng hệ thống: `TONG0001` (100,000,000 điểm)
 
 ## Lưu ý
-- Chương trình sử dụng mô phỏng gửi OTP (OTP sẽ hiển thị trên console thay vì gửi email thực)
+- Chương trình sử dụng mô phỏng gửi OTP (OTP sẽ hiển thị trên `fileotp.txt` thay vì gửi email thực)
 - Mật khẩu được lưu dưới dạng băm để đảm bảo an toàn
 - Dữ liệu được lưu trong các file text đơn giản
 
