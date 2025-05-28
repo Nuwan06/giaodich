@@ -1,7 +1,7 @@
 # README - Hệ Thống Quản Lý Ví Điểm
 
 ## Giới thiệu dự án
-Hệ thống Quản lý Ví Điểm là một ứng dụng console được phát triển bằng C++ giúp quản lý tài khoản người dùng, ví điểm và các giao dịch chuyển điểm giữa các ví. Hệ thống bao gồm các chức năng chính:
+Hệ thống Quản lý Ví Điểm là một ứng dụng console được phát triển bằng C++ giúp quản lý tài khoản người dùng, ví điểm và các giao dịch chuyển điểm giữa các ví. Hệ thống bao gồm các chức năng chính :
 - Đăng ký/đăng nhập tài khoản với xác thực OTP
 - Quản lý ví (tạo mới, xem số dư)
 - Thực hiện giao dịch chuyển điểm
