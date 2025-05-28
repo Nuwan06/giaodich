@@ -516,8 +516,13 @@ public:
         cin >> maViDich;
         cout << "Nhập số điểm cần chuyển: ";
         cin >> soDiem;
-        if (soDiem <= 0) {  // Kiểm tra số điểm hợp lệ
-            cout << "Số điểm phải lớn hơn 0" << endl;
+        if (cin.fail()) {
+            cerr << "Số điểm quá lớn";
+            cin.clear();
+            return;
+        }
+        if (soDiem <= 0 ) {  // Kiểm tra số điểm hợp lệ
+            cout << "Số điểm không hợp lệ" << endl;
             return;
         }
         bool validNguon = false;   // kiểm tra ví nguồn hợp lệ
